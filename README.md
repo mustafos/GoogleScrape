@@ -1,4 +1,7 @@
 # GoogleScrape
+
+[![Header](https://github.com/mustafos/GoogleScrape/blob/master/illustration/banner.gif)](https://mustafos.pythonanywhere.com)
+
 GoogleScrape is a simple web application designed to fetch and parse organic search results from Google. The application provides a user-friendly interface with an input field where you can enter a search query, and it returns the results from the first page of Google's organic search in a structured format. This project demonstrates the ability to scrape web data without using the official Google API.
 
 ## Features
@@ -12,6 +15,8 @@ GoogleScrape is a simple web application designed to fetch and parse organic sea
 - **Frontend**: HTML, JavaScript (Fetch API)
 - **Backend**: Python (Flask, BeautifulSoup, Requests)
 - **Output**: JSON data format
+
+[![Body](https://github.com/mustafos/GoogleScrape/blob/master/illustration/summary.gif)](https://mustafos.pythonanywhere.com)
 
 ## Prerequisites
 - Python 3.x
