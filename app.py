@@ -13,11 +13,14 @@ logging.basicConfig(filename='/home/mustafos/webhook.log', level=logging.INFO)
 def webhook():
     if request.method == 'POST':
         try:
-            repo = git.Repo('GoogleScrape')
+            logging.info('Received webhook request')
+            repo = git.Repo('/home/mustafos/GoogleScrape')  # Use absolute path
             origin = repo.remotes.origin
             origin.pull()
+            logging.info('Repository updated successfully')
             return 'Updated PythonAnywhere successfully', 200
         except Exception as e:
+            logging.error(f'Error during Git pull: {str(e)}')
             return f'An error occurred: {str(e)}', 400
     else:
         return 'Wrong event type', 400
@@ -37,7 +40,13 @@ def search():
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
     }
 
-    response = requests.get(url, headers=headers)
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()  # Check if the request was successful
+    except requests.exceptions.RequestException as e:
+        logging.error(f'Error fetching Google results: {str(e)}')
+        return jsonify({'error': 'Failed to fetch search results'}), 500
+
     soup = BeautifulSoup(response.text, 'html.parser')
 
     # Parsing organic search results

@@ -5,7 +5,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>GoogleScrape</title>
                 <!-- Link to the external CSS file -->
-                <link rel="stylesheet" href="styles.css">
+                <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     </head>
     <body>
         <div class="container">
@@ -23,6 +23,6 @@
         </div>
         
         <!-- Link to external JavaScript file -->
-        <script src="script.js"></script>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>
 </html>
