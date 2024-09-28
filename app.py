@@ -64,7 +64,7 @@ def find_results(soup):
                          
                          # If no results are found with any of the classes, return an empty list
                          logging.warning('No results found with any of the known classes.')
-    return []
+                         return []
 
 # Route to handle the search request
 @app.route('/search', methods=['GET'])
