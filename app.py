@@ -1,9 +1,12 @@
 from flask import Flask, request, jsonify, render_template
 import git
+import logging
 import requests
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
+
+logging.basicConfig(filename='/home/mustafos/webhook.log', level=logging.INFO)
 
 # Route to update the server via webhook
 @app.route('/update_server', methods=['POST'])
