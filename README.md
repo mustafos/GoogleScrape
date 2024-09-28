@@ -29,7 +29,7 @@ pip install flask beautifulsoup4 requests
 ```bash
 python app.py
 ```
-4. **Open a web browser and go to** `[https://mustafos.pythonanywhere.com](https://mustafos.pythonanywhere.com)`
+4. **Open a web browser and go to** [`https://mustafos.pythonanywhere.com`](https://mustafos.pythonanywhere.com)
 5. **Enter a search query in the input field and click `Search`.**
 6. **The results from the first page of Google’s organic search will be displayed in JSON format.**
 

@@ -92,17 +92,24 @@ p {
 }
 
 /* Style for the search results */
-#results {
+#results-container {
     text-align: left;
     margin-top: 20px;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    font-size: 16px; /* Default font size for search results */
+    font-size: 16px;
+    max-height: 200px; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 10px;
+    border: 1px solid #dfe1e5;
+    border-radius: 8px;
+}
+
+/* Style for individual search result items */
+.result-item {
+    margin-bottom: 10px;
 }
 
 /* Mobile styles */
 @media (max-width: 600px) {
-    /* Adjust container size and padding */
     .container {
         width: 90%;
         padding: 15px;
@@ -110,27 +117,23 @@ p {
         border-radius: 5px;
     }
     
-    /* Adjust input field size */
     #query {
         padding: 10px;
         font-size: 14px;
         padding-right: 35px; /* Adjust for the clear button */
     }
     
-    /* Adjust the clear button size */
     #clearButton {
         font-size: 16px;
         right: 8px;
     }
     
-    /* Adjust search button size */
     .search-button {
         padding: 8px 16px;
         font-size: 14px;
         border-radius: 20px;
     }
     
-    /* Adjust heading and paragraph text size */
     h1 {
         font-size: 36px;
         margin-bottom: 8px;
@@ -141,12 +144,10 @@ p {
         margin-bottom: 15px;
     }
     
-    /* Adjust search results styling */
-    #results {
+    #results-container {
         font-size: 14px;
     }
     
-    /* Adjust spacing for the save button */
     #saveResults {
         margin-top: 15px;
     }

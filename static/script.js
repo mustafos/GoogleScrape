@@ -8,11 +8,21 @@ document.getElementById('searchForm').addEventListener('submit', async function(
         
         // Check for errors
         if (results.error) {
-            document.getElementById('results').textContent = 'Error fetching results.';
+            document.getElementById('results-container').textContent = 'Error fetching results.';
             return;
         }
         
-        document.getElementById('results').textContent = JSON.stringify(results, null, 2);
+        // Clear previous results
+        const resultsContainer = document.getElementById('results-container');
+        resultsContainer.innerHTML = '';
+        
+        // Display the results
+        results.forEach(result => {
+            const resultItem = document.createElement('div');
+            resultItem.classList.add('result-item');
+            resultItem.innerHTML = `<strong>${result.title}</strong><br><a href="${result.link}" target="_blank">${result.link}</a>`;
+            resultsContainer.appendChild(resultItem);
+        });
         
         // Enable save button
         const saveButton = document.getElementById('saveResults');
@@ -28,7 +38,7 @@ document.getElementById('searchForm').addEventListener('submit', async function(
             URL.revokeObjectURL(url);
         };
     } catch (error) {
-        document.getElementById('results').textContent = 'Error fetching results.';
+        document.getElementById('results-container').textContent = 'Error fetching results.';
     }
 });
 
@@ -44,6 +54,6 @@ queryInput.addEventListener('input', function() {
 clearButton.addEventListener('click', function() {
     queryInput.value = '';
     clearButton.style.display = 'none';
-    document.getElementById('results').textContent = ''; // Clear search results
+    document.getElementById('results-container').innerHTML = ''; // Clear search results
     document.getElementById('saveResults').style.display = 'none'; // Hide the save button
 });
