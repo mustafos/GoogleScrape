@@ -1,8 +1,13 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import requests
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
+
+# Route to serve the HTML file
+@app.route('/')
+def home():
+    return render_template('index.html')  # Make sure 'index.html' is in the 'templates' folder
 
 @app.route('/search', methods=['GET'])
 def search():
