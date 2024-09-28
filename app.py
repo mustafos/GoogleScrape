@@ -1,8 +1,19 @@
 from flask import Flask, request, jsonify, render_template
+import git
 import requests
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
+
+@app.route('/update_server', methods=['POST'])
+def webhook():
+if request.method == 'POST':
+repo = git.Repo('GoogleScrape')
+origin = repo.remotes.origin
+origin.pull()
+    return 'Updated PythonAnywhere successfully', 200
+    else:
+    return 'Wrong event type', 400
 
 # Route to serve the HTML file
 @app.route('/')
