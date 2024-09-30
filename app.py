@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template
 import git
 import logging
 import requests
+import urllib.parse
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
@@ -47,7 +48,6 @@ def find_results(soup):
                          
                          for class_name in potential_classes:
                          results = []
-                         # Attempt to find elements with the current class name
                          for result_block in soup.find_all('div', class_=class_name):
                          title_element = result_block.find('h3')
                          link_element = result_block.find('a')
@@ -55,14 +55,18 @@ def find_results(soup):
                          if title_element and link_element:
                          title = title_element.get_text()
                          link = link_element['href']
+                         
+                         # Clean up the Google redirect URL
+                         if '/url?' in link:
+                         link = urllib.parse.parse_qs(urllib.parse.urlparse(link).query).get('url', [None])[0]
+                         
+                         if link:
                          results.append({'title': title, 'link': link})
                          
-                         # If results are found, return them
                          if results:
                          logging.info(f"Found results using class: {class_name}")
                              return results
                          
-                         # If no results are found with any of the classes, return an empty list
                          logging.warning('No results found with any of the known classes.')
                          return []
 

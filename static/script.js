@@ -1,6 +1,13 @@
 document.getElementById('searchForm').addEventListener('submit', async function(event) {
     event.preventDefault();
-    const query = document.getElementById('query').value;
+    const query = document.getElementById('query').value.trim();
+    
+    if (!query) {
+        // If the input is empty, return and do not proceed with the search
+        document.getElementById('results-container').innerHTML = '';
+        document.getElementById('saveResults').style.display = 'none';
+        return;
+    }
     
     try {
         const response = await fetch(`/search?query=${encodeURIComponent(query)}`);
@@ -24,7 +31,8 @@ document.getElementById('searchForm').addEventListener('submit', async function(
             resultsContainer.appendChild(resultItem);
         });
         
-        // Enable save button
+        // Show results and save button
+        resultsContainer.style.display = 'block';
         const saveButton = document.getElementById('saveResults');
         saveButton.style.display = 'block';
         
@@ -40,20 +48,4 @@ document.getElementById('searchForm').addEventListener('submit', async function(
     } catch (error) {
         document.getElementById('results-container').textContent = 'Error fetching results.';
     }
-});
-
-// Handle input changes to show or hide the clear button
-const queryInput = document.getElementById('query');
-const clearButton = document.getElementById('clearButton');
-
-queryInput.addEventListener('input', function() {
-    clearButton.style.display = queryInput.value ? 'block' : 'none';
-});
-
-// Handle clear button click
-clearButton.addEventListener('click', function() {
-    queryInput.value = '';
-    clearButton.style.display = 'none';
-    document.getElementById('results-container').innerHTML = ''; // Clear search results
-    document.getElementById('saveResults').style.display = 'none'; // Hide the save button
 });
