@@ -8,7 +8,7 @@
                 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
                     <!-- Link to Font Awesome for icons -->
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    </head>
+                    </head>
     <body>
         <div class="container">
             <h1>GoogleScrape</h1>
@@ -21,10 +21,11 @@
                 <button type="submit" class="search-button">Search</button>
             </form>
             
-            <h2>Search Results:</h2>
-            <div id="results-container"></div> <!-- Updated results container -->
-            
-            <button id="saveResults" class="search-button" style="display: none;">Save Results</button> <!-- Updated button style -->
+            <h2 id="results-header" style="display: none;">Search Results:</h2>
+            <!-- Updated results container -->
+            <div id="results-container"></div>
+            <!-- Updated button style -->
+            <button id="saveResults" class="search-button" style="display: none;">Save Results</button>
         </div>
         
         <!-- Link to external JavaScript file -->

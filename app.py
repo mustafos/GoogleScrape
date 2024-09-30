@@ -35,40 +35,43 @@ def home():
 def find_results(soup):
     # Expanded list of potential classes for organic results
     potential_classes = [
-                         'tF2Cxc',  # Main class for organic results
-                         'g',       # A common class used in organic results
-                         'rc',      # Another commonly seen class in older Google pages
-                         'ZINbbc',  # Used for certain types of result blocks
-                         'v7W49e',  # Used for some featured snippets
-                         'xpd',     # Expanded information panels
-                         'MjjYud',  # Organic results container in some versions
-                         'yuRUbf',  # Link container for some organic results
-                         'BVG0Nb'   # Title container in some search blocks
-                         ]
-                         
-                         for class_name in potential_classes:
-                         results = []
-                         for result_block in soup.find_all('div', class_=class_name):
-                         title_element = result_block.find('h3')
-                         link_element = result_block.find('a')
-                         
-                         if title_element and link_element:
-                         title = title_element.get_text()
-                         link = link_element['href']
-                         
-                         # Clean up the Google redirect URL
-                         if '/url?' in link:
-                         link = urllib.parse.parse_qs(urllib.parse.urlparse(link).query).get('url', [None])[0]
-                         
-                         if link:
-                         results.append({'title': title, 'link': link})
-                         
-                         if results:
-                         logging.info(f"Found results using class: {class_name}")
-                             return results
-                         
-                         logging.warning('No results found with any of the known classes.')
-                         return []
+        'tF2Cxc',  # Main class for organic results
+        'g',       # A common class used in organic results
+        'rc',      # Another commonly seen class in older Google pages
+        'ZINbbc',  # Used for certain types of result blocks
+        'v7W49e',  # Used for some featured snippets
+        'xpd',     # Expanded information panels
+        'MjjYud',  # Organic results container in some versions
+        'yuRUbf',  # Link container for some organic results
+        'BVG0Nb'   # Title container in some search blocks
+    ]
+
+    results = []
+    for class_name in potential_classes:
+        # Attempt to find elements with the current class name
+        for result_block in soup.find_all('div', class_=class_name):
+            title_element = result_block.find('h3')
+            link_element = result_block.find('a')
+            
+            if title_element and link_element:
+                title = title_element.get_text()
+                link = link_element['href']
+                
+                # Clean up the Google redirect URL
+                if '/url?' in link:
+                    link = urllib.parse.parse_qs(urllib.parse.urlparse(link).query).get('url', [None])[0]
+                
+                if link:
+                    results.append({'title': title, 'link': link})
+        
+        # If results are found, return them
+        if results:
+            logging.info(f"Found results using class: {class_name}")
+            return results
+
+    # If no results are found with any of the classes, return an empty list
+    logging.warning('No results found with any of the known classes.')
+    return []
 
 # Route to handle the search request
 @app.route('/search', methods=['GET'])
